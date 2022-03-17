@@ -16,7 +16,7 @@
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
-@import '~@ionic/angular/css/display.css';
+@import "~@ionic/angular/css/display.css";
 
 /* Optional CSS utils that can be commented out */
 @import "~@ionic/angular/css/padding.css";
@@ -24,3 +24,43 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+* {
+  font-family: "Saysettha OT" !important;
+}
+._wrap {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 1rem;
+}
+
+ion-content {
+  --background: #85f4ff;
+}
+._card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 95%;
+  margin: 0;
+  overflow-y: scroll;
+}
+
+._btn {
+  width: 50%;
+  font-size: 1em;
+  --background: #42c2ff;
+  margin: 1rem;
+}
+
+._title {
+  text-align: center;
+  text-shadow: 2px 2px 5px #42c2ff;
+}
+
+._err {
+  color: red;
+}

@@ -1,0 +1,39 @@
+<ion-content>
+  <ion-card class="_card">
+    <h1 class="_title">ສ້າງບັນຊີ</h1>
+    <div class="_wrap">
+      <ion-input
+        type="text"
+        placeholder="ຊື່"
+        [(ngModel)]="data.firstname"
+      ></ion-input>
+
+      <ion-input
+        type="text"
+        placeholder="ນາມສະກຸນ"
+        [(ngModel)]="data.lastname"
+      ></ion-input>
+
+      <ion-input
+        type="email"
+        placeholder="ອີເມລ໌"
+        [(ngModel)]="data.email"
+      ></ion-input>
+
+      <ion-input
+        type="password"
+        placeholder="ລະຫັດຜ່ານ"
+        [(ngModel)]="data.password"
+      ></ion-input>
+
+      <ion-input
+        type="password"
+        placeholder="ຢືນຢັນລະຫັດຜ່ານ"
+        [(ngModel)]="data.confirm_password"
+      ></ion-input>
+      <div class="_err" *ngIf="msg">{{msg}}</div>
+      <ion-button class="_btn" (click)="onRegister()"> ລົງທະບຽນ </ion-button>
+      <div>ມີບັນຊີແລ້ວ. <a href="/login">ເຂົ້າສູ່ລະບົບ</a></div>
+    </div>
+  </ion-card>
+</ion-content>

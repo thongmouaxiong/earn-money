@@ -1,0 +1,107 @@
+ion-toolbar {
+  --background: #28a3ff !important;
+  color: #fff;
+  ion-title {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  ion-icon {
+    font-size: 2rem;
+    margin-right: 0.8rem;
+  }
+}
+
+._bag {
+  height: 3.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgb(249, 250, 192);
+  margin:0 0.5rem;
+  margin-top: .5rem;
+  border-radius: 0.325rem;
+  border-bottom: 2px solid #555;
+  h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.25em;
+    font-weight: bold;
+  }
+}
+
+._money {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  padding: 0.5rem;
+  margin: 0;
+  border-radius: 0.325rem;
+  border-bottom: 2px solid #555;
+  height: 5.2rem;
+  ion-icon {
+    align-self: flex-end;
+    position: absolute;
+  }
+  h1 {
+    font-size: 1.25em;
+    margin: 0;
+    padding: .5rem;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  ._div-wrap {
+    display: flex;
+    justify-content: space-between;
+    h1 {
+      // padding-left: 0.5rem;
+      padding: 0;
+      margin: 0;
+      align-self: flex-start;
+      color: red;
+      font-size: 1.25em;
+    }
+    h2 {
+      padding: 0;
+      margin: 0;
+      align-self: flex-end;
+      font-size: .85em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      // padding: 0 0 .3rem 0 ;
+    }
+  }
+}
+
+._pop {
+  --width: 94%;
+  ion-input,
+  ion-textarea {
+    font-family: "Saysettha OT";
+    border: 1px solid #555;
+    border-radius: 0.5rem;
+    background-color: #fff;
+  }
+}
+
+._wrap {
+  label {
+    font-size: 1.25rem;
+  }
+}
+
+._sel{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: .5rem;
+  gap: .5rem;
+  select{
+    width: 4rem;
+    border-radius: .25rem;
+  }
+}

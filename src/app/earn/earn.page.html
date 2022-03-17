@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> ອອນເງິນ </ion-title>
+    <ion-icon
+      id="pop-add"
+      name="add-circle-sharp"
+      slot="end"
+      (click)="popEarn = true"
+    ></ion-icon>
+    <ion-popover trigger="pop-add" class="_pop" side="top" [isOpen]="popEarn">
+      <ng-template>
+        <ion-content>
+          <div class="_wrap">
+            <label>ເອົາເງິນເຂົ້າກະເປົ໋າອອນ</label>
+            <ion-input
+              type="number"
+              placeholder="ຈຳນວນເງິນ"
+              [(ngModel)]="amount_money"
+            ></ion-input>
+
+            <div class="_err" *ngIf="msg">{{msg}}</div>
+
+            <ion-button class="_btn" (click)="onAdd()"> ບັນທຶກ </ion-button>
+          </div>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" id="refresher" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="_bag">
+    <ion-img src="../../assets/icon/earn.png"></ion-img>
+    <h1>{{total | number}} ກີບ</h1>
+  </div>
+
+  <ion-grid>
+    <ion-row *ngFor="let val of earnData; let i=index">
+      <ion-col size="12">
+        <div class="_money">
+          <ion-icon
+            name="close-sharp"
+            color="danger"
+            (click)="onDel(val._id, i)"
+          ></ion-icon>
+          <h1>{{val.money | number}} ກີບ</h1>
+          <h2>{{val.createdAt | date:'dd-MM-yyyy HH:mm:ss'}}</h2>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="ກຳລັງໂຫລດຂໍ້ມູນເພິ່ມ...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

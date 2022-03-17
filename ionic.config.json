@@ -1,5 +1,8 @@
 {
   "name": "earn-money",
-  "integrations": {},
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
   "type": "angular"
 }

@@ -1,0 +1,73 @@
+._content {
+  position: relative;
+}
+
+._card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  margin: 0 auto;
+}
+
+._img {
+  position: relative;
+  width: 100%;
+  height: 12.5rem;
+  // width: 12.5rem;
+  ion-icon {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+    color: #000;
+    font-size: 1.25rem;
+  }
+}
+ion-popover {
+  --width: 12.5rem;
+  ion-item {
+    font-size: 0.875em;
+    ion-icon {
+      margin-right: 0.5rem;
+    }
+  }
+}
+._img-background {
+  width: 100%;
+  height: 75%;
+  object-fit: cover;
+}
+._img-profile {
+  width: 7.25rem;
+  height: 7.25rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  position: absolute;
+  z-index: 9;
+  background-color: #e2e2e2;
+  border-radius: 50%;
+  border: 0.25rem solid #fff;
+  object-fit: cover;
+}
+
+ion-content {
+  --background: #85f4ff;
+}
+
+._pop {
+  --width: 80%;
+  // position: absolute;
+  // top: 50%;
+  // left: 50%;
+  // transform: translate(-50%, -50%);
+  // margin: 0 auto;
+  ion-input {
+    font-family: "Saysettha OT";
+    border: 1px solid #555;
+    border-radius: 0.5rem;
+    background-color: #fff;
+  }
+}
+

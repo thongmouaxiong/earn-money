@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title> ລາຍຮັບ </ion-title>
+    <ion-icon
+      id="pop-add"
+      name="add-circle-sharp"
+      slot="end"
+      (click)="openPop = true"
+    ></ion-icon>
+    <ion-popover trigger="pop-add" class="_pop" side="top" [isOpen]="openPop">
+      <ng-template>
+        <ion-content>
+          <div class="_wrap">
+            <label>ຈັດການລາຍຮັບ</label>
+            <ion-input
+              type="number"
+              placeholder="ຈຳນວນເງິນ"
+              [(ngModel)]="data.money"
+            ></ion-input>
+            <ion-textarea
+              rows="3"
+              type="text"
+              placeholder="ລາຍລະອຽດ"
+              [(ngModel)]="data.description"
+            ></ion-textarea>
+
+            <div class="_err" *ngIf="msg">{{msg}}</div>
+
+            <ion-button class="_btn" (click)="onAdd()"> ບັນທຶກ </ion-button>
+          </div>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" id="refresher" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="_sel">
+    <label for="month">ເດືອນ</label>
+    <select name="" id="month" [(ngModel)]="sel_month" (change)="onSelChange($event)">
+      <option *ngFor="let item of month" [ngValue]="item">{{item}}</option>
+    </select>
+    <label for="year">ປີ</label>
+    <select name="" id="year" [(ngModel)]="sel_year" (change)="onSelChange($event)">
+      <option *ngFor="let item of year" [ngValue]="item" >{{item}}</option>
+    </select>
+  </div>
+  <div class="_bag">
+    <ion-img src="../../assets/icon/earn.png"></ion-img>
+    <h1>{{total | number}} ກີບ</h1>
+  </div>
+  <ion-grid>
+    <ion-row *ngFor="let val of incomeData; let i=index">
+      <ion-col size="12">
+        <div class="_money">
+          <ion-icon
+            name="close-sharp"
+            color="danger"
+            (click)="onDel(val._id, i)"
+          ></ion-icon>
+          <h1>{{val.description}}</h1>
+          <div class="_div-wrap">
+            <h1>{{val.money | number}} ກີບ</h1>
+            <h2>{{val.createdAt | date:'HH:mm:ss dd-MM-yyyy'}}</h2>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadMore($event)">
+    <ion-infinite-scroll-content
+      loadingSpinner="bubbles"
+      loadingText="ກຳລັງໂຫລດຂໍ້ມູນເພິ່ມ...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ion-content>

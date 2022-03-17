@@ -1,0 +1,118 @@
+<ion-content fullscreen>
+  <ion-refresher slot="fixed" id="refresher" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card class="_card">
+    <div class="_img">
+      <ion-icon
+        id="open-tag"
+        class="_icon"
+        name="ellipsis-vertical-sharp"
+        (click)="openPop = true"
+      ></ion-icon>
+      <ion-popover
+        trigger="open-tag"
+        side="top"
+        alignment="end"
+        [isOpen]="openPop"
+      >
+        <ng-template>
+          <ion-content>
+            <ion-list>
+              <ion-item [button]="true" [detail]="false" (click)="openPop=false;isEdit=true">
+                <ion-icon name="person-sharp"></ion-icon>
+                <ion-label>ແກ້ໄຂຂໍ້ມູນສ່ວນຕົວ</ion-label>
+              </ion-item>
+              <ion-item [button]="true" [detail]="false" (click)="openPop=false;isPwd=true">
+                <ion-icon name="key-sharp"></ion-icon>
+                <ion-label>ປ່ຽນລະຫັດຜ່ານ</ion-label>
+              </ion-item>
+              <ion-item [button]="true" [detail]="false" (click)="logOut()">
+                <ion-icon name="power-sharp" color="danger"></ion-icon>
+                <ion-label>ອອກຈາກລະບົບ</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
+
+      <label for="bg_img">
+        <img class="_img-background" src="{{proInfo.bg_image}}" />
+      </label>
+      <label for="img">
+        <img class="_img-profile" src="{{proInfo.image}}" />
+      </label>
+    </div>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center"
+        >{{proInfo.firstname}} {{proInfo.lastname}}</ion-card-title
+      >
+    </ion-card-header>
+    <ion-card-content class="ion-text-center">
+      {{proInfo.email}}
+    </ion-card-content>
+  </ion-card>
+  <div class="background">
+    <input
+      accept="image/x-png,image/gif,image/jpeg"
+      type="file"
+      id="bg_img"
+      (change)="selBgImg($event)"
+      style="display: none"
+      hidden
+    />
+    <input
+      accept="image/x-png,image/gif,image/jpeg"
+      type="file"
+      id="img"
+      (change)="selImg($event)"
+      style="display: none"
+      hidden
+    />
+  </div>
+
+  <ion-popover class="_pop" side="top" alignment="end" [isOpen]="isEdit">
+    <ng-template>
+      <ion-content>
+        <div class="_wrap">
+          <ion-input
+            type="text"
+            placeholder="ຊື່"
+            [(ngModel)]="proInfo.firstname"
+          ></ion-input>
+          <ion-input
+            type="text"
+            placeholder="ນາມສະກຸນ"
+            [(ngModel)]="proInfo.lastname"
+          ></ion-input>
+
+          <div class="_err" *ngIf="msg">{{msg}}</div>
+
+          <ion-button class="_btn" (click)="onEdit()"> ແກ້ໄຂ </ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+  <ion-popover class="_pop" side="top" alignment="end" [isOpen]="isPwd">
+    <ng-template>
+      <ion-content>
+        <div class="_wrap">
+          <ion-input
+            type="text"
+            placeholder="ລະຫັດຜ່ານເກົ່າ"
+            [(ngModel)]="password.old"
+          ></ion-input>
+          <ion-input
+            type="text"
+            placeholder="ລະຫັດຜ່ານໃໝ່"
+            [(ngModel)]="password.new"
+          ></ion-input>
+
+          <div class="_err" *ngIf="msg">{{msg}}</div>
+
+          <ion-button class="_btn" (click)="onChangePwd()"> ຢືນຢັນ </ion-button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+</ion-content>
