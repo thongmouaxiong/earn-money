@@ -5,9 +5,9 @@
       id="pop-add"
       name="add-circle-sharp"
       slot="end"
-      (click)="openPop = true"
+      (click)="openPopIncome($event)"
     ></ion-icon>
-    <ion-popover trigger="pop-add" class="_pop" side="top" [isOpen]="openPop">
+    <!-- <ion-popover trigger="pop-add" class="_pop" side="top" [isOpen]="popExpense">
       <ng-template>
         <ion-content>
           <div class="_wrap">
@@ -30,7 +30,7 @@
           </div>
         </ion-content>
       </ng-template>
-    </ion-popover>
+    </ion-popover> -->
   </ion-toolbar>
 </ion-header>
 
@@ -48,11 +48,13 @@
       <option *ngFor="let item of year" [ngValue]="item" >{{item}}</option>
     </select>
   </div>
-  <div class="_bag">
-    <ion-img src="../../assets/icon/earn.png"></ion-img>
-    <h1>{{total | number}} ກີບ</h1>
+  <div class="wrap_bag">
+    <p class="ion-text-center">{{sel_show}}</p>
+    <div class="_bag">
+      <ion-img src="../../assets/icon/earn.png"></ion-img>
+      <h1>{{total | number}} ກີບ</h1>
+    </div>
   </div>
-
   <ion-grid>
     <ion-row *ngFor="let val of expensesData; let i=index">
       <ion-col size="12">

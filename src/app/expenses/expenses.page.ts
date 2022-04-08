@@ -1,7 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertController, IonInfiniteScroll } from '@ionic/angular';
+import {
+  AlertController,
+  IonInfiniteScroll,
+  PopoverController,
+} from '@ionic/angular';
 import { ExpensesService } from 'src/service/expenses/expenses.service';
 import { LoadingService } from 'src/service/loading/loading.service';
+import { PopIncomeComponent } from '../component/pop-income/pop-income.component';
 
 @Component({
   selector: 'app-expenses',
@@ -11,7 +16,14 @@ import { LoadingService } from 'src/service/loading/loading.service';
 export class ExpensesPage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
-  openPop = false;
+  constructor(
+    private expenses: ExpensesService,
+    private loadSerivce: LoadingService,
+    private alertController: AlertController,
+    public popoverController: PopoverController
+  ) {}
+
+  popExpense = false;
   data = { money: null, description: '' };
   msg = '';
 
@@ -27,11 +39,7 @@ export class ExpensesPage implements OnInit {
   sel_month: number;
   sel_year: number;
 
-  constructor(
-    private expenses: ExpensesService,
-    private loadSerivce: LoadingService,
-    private alertController: AlertController
-  ) {}
+  sel_show: string;
 
   ngOnInit() {
     for (
@@ -47,6 +55,8 @@ export class ExpensesPage implements OnInit {
   }
 
   loadExpenses() {
+    this.sel_show = 'ລາຍຮັບທັງໝົດ';
+
     this.loadSerivce.onLoading();
     this.expenses.getAllExpenses(this.token, 0).subscribe((res: any) => {
       this.loadSerivce.onDismiss();
@@ -58,27 +68,6 @@ export class ExpensesPage implements OnInit {
         this.skip = 1;
       }
     });
-  }
-
-  onAdd() {
-    if (!this.data.money || !this.data.description) {
-      this.msg = 'ກະລຸນາປ້ອນຂໍ້ມູນໃຫ້ຄົບທຸກຊ່ອງ!';
-      return;
-    } else if (this.data.money % 1000 != 0 || this.data.money <= 0) {
-      this.msg = 'ຈຳນວນເງິນບໍຖືກຕ້ອງ!';
-      return;
-    } else {
-      this.msg = '';
-    }
-    this.loadSerivce.onLoading();
-    this.expenses.addExpenses(this.token, this.data).subscribe((res: any) => {
-      this.loadSerivce.onDismiss();
-
-      console.log('expenses data=>', res);
-      this.data = { money: null, description: '' };
-      this.loadExpenses();
-    });
-    this.openPop = false;
   }
 
   onDel(expenses_id: string, i: number) {
@@ -140,6 +129,7 @@ export class ExpensesPage implements OnInit {
 
   onSelChange(e: any) {
     console.log(this.sel_year, this.sel_month);
+    this.sel_show = `ລາຍຮັບປະຈຳເດືອນ ${this.sel_month} ປີ ${this.sel_year}`;
     this.skip = 0;
     this.loadSerivce.onLoading();
     this.expenses
@@ -152,5 +142,25 @@ export class ExpensesPage implements OnInit {
           this.skip = 1;
         }
       });
+  }
+
+  async openPopIncome(ev: any) {
+    const popover = await this.popoverController.create({
+      component: PopIncomeComponent,
+      cssClass: 'pop',
+      componentProps: {
+        action: 'expenses',
+      },
+      event: ev,
+      translucent: true,
+    });
+    popover.style.cssText = '--width: 94%';
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+    if (role == 'success') {
+      this.loadExpenses();
+    }
   }
 }

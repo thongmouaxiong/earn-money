@@ -64,3 +64,33 @@ ion-content {
 ._err {
   color: red;
 }
+
+.wrap_bag {
+  height: 3.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgb(249, 250, 192);
+  margin: 0 0.5rem;
+  border-radius: 0.325rem;
+  border-bottom: 2px solid #555;
+  height: 5.2rem;
+  p {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1em;
+    font-weight: bold;
+  }
+}
+._bag {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  h1 {
+    margin: 0;
+    font-size: 1.25em;
+    font-weight: bold;
+  }
+}

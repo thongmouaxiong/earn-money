@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertController, IonInfiniteScroll } from '@ionic/angular';
+import { AlertController, IonInfiniteScroll, PopoverController } from '@ionic/angular';
 import { EarnService } from 'src/service/earn/earn.service';
 import { LoadingService } from 'src/service/loading/loading.service';
+import { PopIncomeComponent } from '../component/pop-income/pop-income.component';
 
 @Component({
   selector: 'app-earn',
@@ -24,8 +25,9 @@ export class EarnPage implements OnInit {
   constructor(
     private earn: EarnService,
     private loadSerivce: LoadingService,
-    private alertController: AlertController
-  ) {}
+    private alertController: AlertController,
+    public popoverController: PopoverController
+    ) {}
 
   ngOnInit() {
     this.loadEarn();
@@ -121,5 +123,27 @@ export class EarnPage implements OnInit {
 
   toggleInfiniteScroll() {
     this.infiniteScroll.disabled = !this.infiniteScroll.disabled;
+  }
+
+  async openPopIncome(ev:any){
+    const popover = await this.popoverController.create({
+      component: PopIncomeComponent,
+      cssClass: 'pop-over-style',
+      componentProps: {
+        action:'earn'
+      },
+      event: ev,
+      translucent: true,
+    });
+    popover.style.cssText = '--width: 94%';
+
+    await popover.present();
+  
+    const { role } = await popover.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+    
+    if (role == 'success') {      
+      this.loadEarn()
+    }
   }
 }

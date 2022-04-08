@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { EarnPageRoutingModule } from './earn-routing.module';
 
 import { EarnPage } from './earn.page';
+import { ComponentModule } from '../component/component.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    EarnPageRoutingModule
+    EarnPageRoutingModule,
+    ComponentModule
   ],
   declarations: [EarnPage]
 })

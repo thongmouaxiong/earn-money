@@ -1,17 +1,29 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AlertController, IonInfiniteScroll } from '@ionic/angular';
+import {
+  AlertController,
+  IonInfiniteScroll,
+  PopoverController,
+} from '@ionic/angular';
 import { IncomeService } from 'src/service/income/income.service';
 import { LoadingService } from 'src/service/loading/loading.service';
+import { PopIncomeComponent } from '../component/pop-income/pop-income.component';
 
 @Component({
-  selector: 'app-income',
-  templateUrl: './income.page.html',
-  styleUrls: ['./income.page.scss'],
+  selector: 'app-incomes',
+  templateUrl: './incomes.page.html',
+  styleUrls: ['./incomes.page.scss'],
 })
-export class IncomePage implements OnInit {
+export class IncomesPage implements OnInit {
   @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
-  openPop = false;
+  constructor(
+    private income: IncomeService,
+    private loadSerivce: LoadingService,
+    private alertController: AlertController,
+    public popoverController: PopoverController
+  ) {}
+
+  popIcome = false;
   data = { money: null, description: '' };
   msg = '';
 
@@ -27,11 +39,7 @@ export class IncomePage implements OnInit {
   sel_month: number;
   sel_year: number;
 
-  constructor(
-    private income: IncomeService,
-    private loadSerivce: LoadingService,
-    private alertController: AlertController
-  ) {}
+  sel_show: string;
 
   ngOnInit() {
     for (
@@ -43,10 +51,12 @@ export class IncomePage implements OnInit {
     }
     this.sel_year = this.year[0];
     this.sel_month = new Date().getMonth() + 1;
-    this.loadincome();
+    this.loadIncome();
   }
 
-  loadincome() {
+  loadIncome() {
+    this.sel_show = 'ລາຍຮັບທັງໝົດ';
+
     this.loadSerivce.onLoading();
 
     this.income.getAllIncome(this.token, 0).subscribe((res: any) => {
@@ -60,27 +70,6 @@ export class IncomePage implements OnInit {
     });
   }
 
-  onAdd() {
-    if (!this.data.money || !this.data.description) {
-      this.msg = 'ກະລຸນາປ້ອນຂໍ້ມູນໃຫ້ຄົບທຸກຊ່ອງ!';
-      return;
-    } else if (this.data.money % 1000 != 0 || this.data.money <= 0) {
-      this.msg = 'ຈຳນວນເງິນບໍຖືກຕ້ອງ!';
-      return;
-    } else {
-      this.msg = '';
-    }
-    this.loadSerivce.onLoading();
-
-    this.income.addIncome(this.token, this.data).subscribe((res: any) => {
-      this.loadSerivce.onDismiss();
-      console.log('income data=>', res);
-      this.data = { money: null, description: '' };
-      this.loadincome();
-    });
-    this.openPop = false;
-  }
-
   onDel(income_id: string, i: number) {
     console.log('id=>', income_id, i);
     this.loadSerivce.onLoading();
@@ -89,14 +78,14 @@ export class IncomePage implements OnInit {
       this.loadSerivce.onDismiss();
       console.log('delete income=>', res);
       if (res.success) {
-        this.loadincome();
+        this.loadIncome();
       }
     });
   }
   doRefresh(event) {
     setTimeout(() => {
       this.skip = 1;
-      this.loadincome();
+      this.loadIncome();
       event.target.complete();
     }, 1000);
   }
@@ -139,6 +128,8 @@ export class IncomePage implements OnInit {
 
   onSelChange(e: any) {
     console.log(this.sel_year, this.sel_month);
+    this.sel_show = `ລາຍຮັບປະຈຳເດືອນ ${this.sel_month} ປີ ${this.sel_year}`;
+
     this.skip = 0;
     this.loadSerivce.onLoading();
     this.income
@@ -147,7 +138,7 @@ export class IncomePage implements OnInit {
         (res: any) => {
           this.loadSerivce.onDismiss();
           console.log(res);
-          
+
           if (res.success) {
             this.incomeData = res.data.income;
             this.total = res.data.total_money.sum;
@@ -158,5 +149,25 @@ export class IncomePage implements OnInit {
           console.log(err);
         }
       );
+  }
+
+  async openPopIncome(ev: any) {
+    const popover = await this.popoverController.create({
+      component: PopIncomeComponent,
+      cssClass: 'pop',
+      componentProps: {
+        action: 'income',
+      },
+      event: ev,
+      translucent: true,
+    });
+    popover.style.cssText = '--width: 94%';
+    await popover.present();
+
+    const { role } = await popover.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+    if (role == 'success') {
+      this.loadIncome();
+    }
   }
 }

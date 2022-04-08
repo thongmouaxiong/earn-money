@@ -1,0 +1,27 @@
+<div class="_wrap" *ngIf="action == 'income'">
+  <label>ເພິ່ມລາຍຮັບ</label>
+  <ion-input [(ngModel)]="data_income.money" type="number" placeholder="ຈຳນວນເງິນ"></ion-input>
+  <ion-textarea [(ngModel)]="data_income.description" rows="3" type="text" placeholder="ລາຍລະອຽດ"></ion-textarea>
+
+  <div class="_err" *ngIf="msg">{{msg}}</div>
+
+  <ion-button class="_btn" (click)="onSave()"> ບັນທຶກ </ion-button>
+</div>
+<div class="_wrap" *ngIf="action == 'expenses'">
+  <label>ເພິ່ມລາຍຈ່າຍ</label>
+  <ion-input [(ngModel)]="data_expenses.money" type="number" placeholder="ຈຳນວນເງິນ"></ion-input>
+  <ion-textarea [(ngModel)]="data_expenses.description" rows="3" type="text" placeholder="ລາຍລະອຽດ"></ion-textarea>
+
+  <div class="_err" *ngIf="msg">{{msg}}</div>
+
+  <ion-button class="_btn" (click)="onSave()"> ບັນທຶກ </ion-button>
+</div>
+
+<div class="_wrap" *ngIf="action == 'earn'">
+  <label>ອອມເງິນເຂົ້າກະເປົ໋າ</label>
+  <ion-input [(ngModel)]="amount_earn" type="number" placeholder="ຈຳນວນເງິນ" ></ion-input>
+
+  <div class="_err" *ngIf="msg">{{msg}}</div>
+
+  <ion-button class="_btn" (click)="onSave()"> ບັນທຶກ </ion-button>
+</div>

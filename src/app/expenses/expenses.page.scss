@@ -11,25 +11,6 @@ ion-toolbar {
   }
 }
 
-._bag {
-  height: 3.25rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgb(249, 250, 192);
-  margin:0 0.5rem;
-  margin-top: .5rem;
-  border-radius: 0.325rem;
-  border-bottom: 2px solid #555;
-  h1 {
-    margin: 0;
-    padding: 0;
-    font-size: 1.25em;
-    font-weight: bold;
-  }
-}
-
 ._money {
   position: relative;
   display: flex;
@@ -100,8 +81,14 @@ ion-toolbar {
   align-items: center;
   margin: .5rem;
   gap: .5rem;
+  font-size: 1em;
   select{
     width: 4rem;
     border-radius: .25rem;
+    background: white;
   }
+}
+
+.pop{
+  --background: aqua;
 }

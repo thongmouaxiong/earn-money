@@ -7,13 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { ExpensesPageRoutingModule } from './expenses-routing.module';
 
 import { ExpensesPage } from './expenses.page';
+import { ComponentModule } from '../component/component.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ExpensesPageRoutingModule
+    ExpensesPageRoutingModule,
+    ComponentModule
+
   ],
   declarations: [ExpensesPage]
 })

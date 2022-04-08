@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../auth.guard';
-import { ProfilePage } from '../profile/profile.page';
 import { TabsPage } from './tabs.page';
 
 const routes: Routes = [
@@ -16,7 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'income',
-        loadChildren: () => import('../income/income.module').then(m => m.IncomePageModule)
+        loadChildren: () => import('../incomes/incomes.module').then(m => m.IncomesPageModule)
       },
       {
         path: 'expenses',

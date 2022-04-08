@@ -12,6 +12,7 @@ export class IncomeService extends ApiService {
       headers: { token, skip: `${skip}` },
     });
   }
+  
   getIncomeByDate(token: string, skip: number = 0, month:number, year:number) {
     return this.http.get(`${this.url}/by-date`, {
       headers: { token, skip: `${skip}`, month:`${month}`, year:`${year}` },
