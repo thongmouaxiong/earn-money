@@ -55,7 +55,7 @@ export class ExpensesPage implements OnInit {
   }
 
   loadExpenses() {
-    this.sel_show = 'ລາຍຮັບທັງໝົດ';
+    this.sel_show = 'ລາຍຈ່າຍທັງໝົດ';
 
     this.loadSerivce.onLoading();
     this.expenses.getAllExpenses(this.token, 0).subscribe((res: any) => {
@@ -129,7 +129,7 @@ export class ExpensesPage implements OnInit {
 
   onSelChange(e: any) {
     console.log(this.sel_year, this.sel_month);
-    this.sel_show = `ລາຍຮັບປະຈຳເດືອນ ${this.sel_month} ປີ ${this.sel_year}`;
+    this.sel_show = `ລາຍຈ່າຍປະຈຳເດືອນ ${this.sel_month} ປີ ${this.sel_year}`;
     this.skip = 0;
     this.loadSerivce.onLoading();
     this.expenses

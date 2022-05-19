@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Earn Money</string>
-    <string name="title_activity_main">Earn Money</string>
-    <string name="package_name">io.ionic.earn_money</string>
-    <string name="custom_url_scheme">io.ionic.earn_money</string>
+    <string name="app_name">ear-money</string>
+    <string name="title_activity_main">ear-money</string>
+    <string name="package_name">io.ionic.starter</string>
+    <string name="custom_url_scheme">io.ionic.starter</string>
 </resources>
