@@ -1,4 +1,4 @@
-package io.ionic.starter;
+package com.febird.earn_money;
 
 import com.getcapacitor.BridgeActivity;
 
