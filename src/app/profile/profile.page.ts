@@ -26,7 +26,6 @@ export class ProfilePage implements OnInit {
   isEdit = false;
   isPwd = false;
   msg = '';
-
   constructor(
     private user: UserService,
     private route: Router,
@@ -145,12 +144,12 @@ export class ProfilePage implements OnInit {
   }
 
   async logOut() {
-    this.loadSerivce.onLoading();
+    const confirm = await this.loadSerivce.alertConfirm('ຕ້ອງການອອກອອກຈາກລະບົບບໍ?');
+    if (!confirm) return;
     this.user.logout(this.token).subscribe(
       async (res: any) => {
         if (res.success) {
-          this.loadSerivce.onDismiss();
-          localStorage.clear();
+          localStorage.setItem("token",'');
           this.route.navigate(['/login']);
         }
       },

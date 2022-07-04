@@ -70,12 +70,11 @@ export class IncomesPage implements OnInit {
     });
   }
 
-  onDel(income_id: string, i: number) {
+  async onDel(income_id: string, i: number) {
     console.log('id=>', income_id, i);
-    this.loadSerivce.onLoading();
-
+    const confirm = await this.loadSerivce.alertConfirm('ຕ້ອງການລຶບອອກແທ້ບໍ?');
+    if (!confirm) return;
     this.income.deleteIncome(this.token, income_id).subscribe((res: any) => {
-      this.loadSerivce.onDismiss();
       console.log('delete income=>', res);
       if (res.success) {
         this.loadIncome();
@@ -84,6 +83,7 @@ export class IncomesPage implements OnInit {
   }
   doRefresh(event) {
     setTimeout(() => {
+      this.infiniteScroll.disabled = false;
       this.skip = 1;
       this.loadIncome();
       event.target.complete();
@@ -99,13 +99,7 @@ export class IncomesPage implements OnInit {
         console.log('all data=>', this.skip, res);
         if (res.success) {
           if (res.data.income.length == 0) {
-            const alert = await this.alertController.create({
-              cssClass: '_div',
-              header: 'ແຈ້ງເຕືອນ',
-              message: 'ບໍ່ມີຂໍ້ມູນເພີ່ມເຕີມ!!!',
-              buttons: ['ປິດ'],
-            });
-            await alert.present();
+            this.infiniteScroll.disabled = true;
             return;
           }
           this.incomeData = this.incomeData.concat(res.data.income);

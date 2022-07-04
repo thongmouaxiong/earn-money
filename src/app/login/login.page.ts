@@ -16,6 +16,8 @@ export class LoginPage implements OnInit {
 
   msg = '';
 
+  public img = '/assets/image/bg_save_money.jpeg'
+
   constructor(
     private user: UserService,
     private route: Router,

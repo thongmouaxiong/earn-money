@@ -70,14 +70,13 @@ export class ExpensesPage implements OnInit {
     });
   }
 
-  onDel(expenses_id: string, i: number) {
+  async onDel(expenses_id: string, i: number) {
     console.log('id=>', expenses_id, i);
-    this.loadSerivce.onLoading();
+    const confirm = await this.loadSerivce.alertConfirm('ຕ້ອງການລຶບອອກແທ້ບໍ?')
+    if(!confirm) return
     this.expenses
       .deleteExpenses(this.token, expenses_id)
       .subscribe((res: any) => {
-        this.loadSerivce.onDismiss();
-
         console.log('delete expenses=>', res);
         if (res.success) {
           this.loadExpenses();
@@ -86,6 +85,7 @@ export class ExpensesPage implements OnInit {
   }
   doRefresh(event) {
     setTimeout(() => {
+      this.infiniteScroll.disabled = false
       this.loadExpenses();
       event.target.complete();
     }, 1000);
@@ -95,18 +95,10 @@ export class ExpensesPage implements OnInit {
     this.expenses
       .getAllExpenses(this.token, this.skip)
       .subscribe(async (res: any) => {
-        this.loadSerivce.onDismiss();
-
         console.log('all data=>', this.skip, res);
         if (res.success) {
-          if (res.data.expenses.length == 0) {
-            const alert = await this.alertController.create({
-              cssClass: '_div',
-              header: 'ແຈ້ງເຕືອນ',
-              message: 'ບໍ່ມີຂໍ້ມູນເພີ່ມເຕີມ!!!',
-              buttons: ['ປິດ'],
-            });
-            await alert.present();
+          if (!res.data.expenses.length) {
+            this.infiniteScroll.disabled = true
             return;
           }
           this.expensesData = this.expensesData.concat(res.data.expenses);

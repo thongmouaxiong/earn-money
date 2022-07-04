@@ -58,21 +58,12 @@ export class PopIncomeComponent implements OnInit {
       this.msg = '';
     }
 
-    this.loadSerivce.onLoading();
+    // this.loadSerivce.onLoading();
     this.earn.addEarn(this.token, { money: this.amount_earn }).subscribe(
       async (res: any) => {
-        this.loadSerivce.onDismiss();
+        // this.loadSerivce.onDismiss();
         console.log('earn data=>', res);
         this.amount_earn = null;
-
-        const alert = await this.alertController.create({
-          cssClass: '_div',
-          header: 'ແຈ້ງເຕືອນ',
-          message: 'ອອນເງິນເຂົ້າກະເປົ໋າສຳເລັດ.',
-          buttons: ['ປິດ'],
-        });
-        await alert.present();
-
         this.pop.dismiss({ success: true }, 'success');
       },
       (err) => {
@@ -95,22 +86,11 @@ export class PopIncomeComponent implements OnInit {
     } else {
       this.msg = '';
     }
-    this.loadSerivce.onLoading();
-
     this.income
       .addIncome(this.token, this.data_income)
       .subscribe(async (res: any) => {
-        this.loadSerivce.onDismiss();
         console.log('income data_income=>', res);
         this.data_income = { money: null, description: '' };
-        const alert = await this.alertController.create({
-          cssClass: '_div',
-          header: 'ແຈ້ງເຕືອນ',
-          message: 'ເພີ່ມລາຍຮັບສຳເລັດ.',
-          buttons: ['ປິດ'],
-        });
-        await alert.present();
-
         this.pop.dismiss({ success: true }, 'success');
       });
   }
@@ -127,22 +107,11 @@ export class PopIncomeComponent implements OnInit {
     } else {
       this.msg = '';
     }
-    this.loadSerivce.onLoading();
     this.expenses
       .addExpenses(this.token, this.data_expenses)
       .subscribe(async (res: any) => {
-        this.loadSerivce.onDismiss();
-
         console.log('expenses data_expenses=>', res);
         this.data_expenses = { money: null, description: '' };
-        const alert = await this.alertController.create({
-          cssClass: '_div',
-          header: 'ແຈ້ງເຕືອນ',
-          message: 'ເພີ່ມລາຍຈ່າຍສຳເລັດ.',
-          buttons: ['ປິດ'],
-        });
-        await alert.present();
-
         this.pop.dismiss({ success: true }, 'success');
       });
   }
