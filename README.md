@@ -1,2 +1,2 @@
 # earn money app
-ionic + nodets + mongodb
+ionic + node + mongodb
